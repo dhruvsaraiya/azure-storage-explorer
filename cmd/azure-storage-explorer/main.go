@@ -4,6 +4,7 @@ import (
 	"azure-storage-explorer/api"
 	"azure-storage-explorer/internal/blob"
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -40,13 +41,13 @@ func main() {
 		logger.Fatal("failed to create api", zap.Error(err))
 	}
 
-	addr := os.Getenv("ADDR")
-	if addr == "" {
-		addr = ":8080"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
 	}
 
 	server := &http.Server{
-		Addr:    addr,
+		Addr:    fmt.Sprintf(":%s", port),
 		Handler: api,
 	}
 
